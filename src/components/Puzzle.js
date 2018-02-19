@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Table, Grid, Row, Col} from 'react-bootstrap';
 import Brick from './Brick';
+import Canvas from './Canvas';
 
 
 export default class Puzzle extends Component {
@@ -63,13 +64,7 @@ createArray(size){
     return (
       <div>
         <h1> Puzzle of size {this.props.size} will be displayed here </h1>
-        <Table striped bordered condensed hover>
-          <tbody>
-            <tr>
-              {this.createBricks()}
-            </tr>
-          </tbody>
-        </Table>
+        <Canvas/>
       </div>
     );
   }
