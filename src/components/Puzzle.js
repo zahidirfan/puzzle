@@ -67,7 +67,7 @@ createArray(size){
       <div>
         <h1> Puzzle of size {this.props.size} will be displayed here </h1>
         {/*<Canvas/>*/}
-          <div className="col-sm-4"><BasicLayout list={this.state.randomArray}/></div>
+          <div className=""><BasicLayout list={this.state.randomArray}/></div>
       </div>
     );
   }

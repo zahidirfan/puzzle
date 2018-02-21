@@ -1,8 +1,9 @@
 import React from "react";
 import _ from "lodash";
-import RGL, { WidthProvider } from "react-grid-layout";
+// import RGL, { WidthProvider } from "react-grid-layout";
+import ReactGridLayout from 'react-grid-layout';
 
-const ReactGridLayout = WidthProvider(RGL);
+// const ReactGridLayout = WidthProvider(RGL);
 
 class BasicLayout extends React.Component {
 
@@ -17,25 +18,24 @@ class BasicLayout extends React.Component {
     constructor(props) {
         super(props);
         const layout = this.generateLayout();
-        this.state = { layout };
+        this.state = {layout};
     };
 
     layoutProps() {
         return {
-            cols: this.props.list.length,
-            items: this.props.list.length,
-            className:"layout",
+            cols: Math.sqrt(this.props.list.length),
+            className: "layout",
             rowHeight: 10,
-            onLayoutChange: function() {},
-        }
-
+            onLayoutChange: function () {
+            },
+        };
     }
 
     generateDOM() {
-        return _.map(this.props.list, function(i) {
+        return _.map(this.props.list, function (i) {
             return (
                 <div key={i}>
-                    <span className="text">{i}</span>
+                    <span className="text" style={{textDecoration:'center'}}>{i}</span>
                 </div>
             );
         });
@@ -43,17 +43,26 @@ class BasicLayout extends React.Component {
 
     generateLayout() {
         const p = this.props;
-        return _.map(p.list, function(item, i) {
-            const y = _.result(p, "y") || Math.ceil(Math.random() * 4) + 1;
-            return {
-                x: (i * 2) % p.list.length,
-                y: Math.floor(i / 6) * y,
-                w: 2,
-                h: 2,
-                i: item.toString(),
-                isResizable: false
-            };
+        const col = Math.sqrt(p.list.length);
+        let coordinates_list = [];
+        for (let y = 0; y < col; y++) {
+            for (let x = 0; x < col; x++) {
+                coordinates_list.push({
+                    x: x,
+                    y: y,
+                    w: 1,
+                    h: 2,
+                    i: '',
+                    isResizable: false
+                });
+            }
+
+        }
+
+        p.list.forEach(function (item, index) {
+            coordinates_list[index].i = item.toString();
         });
+        return coordinates_list;
     }
 
     onLayoutChange(layout) {
@@ -61,15 +70,19 @@ class BasicLayout extends React.Component {
     }
 
     render() {
-        return (
-            <ReactGridLayout
-                layout={this.generateLayout()}
-                onLayoutChange={this.onLayoutChange}
-                {...this.layoutProps()}
-            >
-                {this.generateDOM()}
-            </ReactGridLayout>
-        );
+
+        return (<ReactGridLayout
+            layout={this.generateLayout()}
+            onLayoutChange={this.onLayoutChange}
+            {...this.layoutProps()}
+            width={300}
+            // autoSize={false}
+            style={{height: 0}}
+        >
+            {this.generateDOM()}
+        </ReactGridLayout>);
+
+
     }
 }
 
