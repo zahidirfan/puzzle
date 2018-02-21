@@ -22,8 +22,8 @@ class BasicLayout extends React.Component {
 
     layoutProps() {
         return {
-            cols: this.props.size,
-            items: this.props.size,
+            cols: this.props.list.length,
+            items: this.props.list.length,
             className:"layout",
             rowHeight: 10,
             onLayoutChange: function() {},
@@ -32,8 +32,7 @@ class BasicLayout extends React.Component {
     }
 
     generateDOM() {
-        debugger;
-        return _.map(_.range(this.props.size), function(i) {
+        return _.map(this.props.list, function(i) {
             return (
                 <div key={i}>
                     <span className="text">{i}</span>
@@ -43,16 +42,15 @@ class BasicLayout extends React.Component {
     }
 
     generateLayout() {
-        debugger;
         const p = this.props;
-        return _.map(new Array(p.size), function(item, i) {
+        return _.map(p.list, function(item, i) {
             const y = _.result(p, "y") || Math.ceil(Math.random() * 4) + 1;
             return {
-                x: (i * 2) % p.size,
+                x: (i * 2) % p.list.length,
                 y: Math.floor(i / 6) * y,
                 w: 2,
                 h: 2,
-                i: i.toString(),
+                i: item.toString(),
                 isResizable: false
             };
         });

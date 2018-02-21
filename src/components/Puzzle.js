@@ -39,12 +39,12 @@ createArray(size){
 
     var shuffledArray =  (
       ()=> {
-        // for (var i=0 ; i < array.length; i++) {
-        //   var random = Math.floor(Math.random()*(i+1));
-        //   var temp = array [i];
-        //   array[i] = array[random] ;
-        //   array[random] = temp;
-        // }
+        for (var i=0 ; i < array.length; i++) {
+          var random = Math.floor(Math.random()*(i+1));
+          var temp = array [i];
+          array[i] = array[random] ;
+          array[random] = temp;
+        }
         return array;
       }
 
@@ -67,7 +67,7 @@ createArray(size){
       <div>
         <h1> Puzzle of size {this.props.size} will be displayed here </h1>
         {/*<Canvas/>*/}
-          <div className="row"><div className="col-sm-2"><BasicLayout size={this.state.randomArray.length}/></div></div>
+          <div className="col-sm-4"><BasicLayout list={this.state.randomArray}/></div>
       </div>
     );
   }
