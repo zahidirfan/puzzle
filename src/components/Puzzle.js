@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Table, Grid, Row, Col} from 'react-bootstrap';
 import Brick from './Brick';
 import Canvas from './Canvas';
+import BasicLayout from './ConvasBasic';
 
 
 export default class Puzzle extends Component {
@@ -13,7 +14,7 @@ export default class Puzzle extends Component {
     this.createBricks = this.createBricks.bind(this);
     this.state = {
       randomArray : []
-    }
+    };
     this.createArray(this.props.size);
 
   }
@@ -46,6 +47,7 @@ createArray(size){
         // }
         return array;
       }
+
     )();
 
     this.setState({
@@ -64,7 +66,8 @@ createArray(size){
     return (
       <div>
         <h1> Puzzle of size {this.props.size} will be displayed here </h1>
-        <Canvas/>
+        {/*<Canvas/>*/}
+          <div className="row"><div className="col-sm-2"><BasicLayout size={this.state.randomArray.length}/></div></div>
       </div>
     );
   }

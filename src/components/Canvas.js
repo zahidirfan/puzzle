@@ -11,9 +11,9 @@ export default class Canvas extends Component {
 
     return (
       <ReactGridLayout className="layout" rows={1} cols={3} rowHeight={30} width={300} autoSize={false}>
-        <div key="a" data-grid={{x: 0, y: 0, w: 1, h: 1,}}>a</div>
-        <div key="b" data-grid={{x: 1, y: 0, w: 1, h: 1,}}>b</div>
-        <div key="c" data-grid={{x: 4, y: 0, w: 1, h: 1}}>c</div>
+        <div key="a" data-grid={{x: 0, y: 0, w: 1, h: 1,}}>1</div>
+        <div key="b" data-grid={{x: 1, y: 0, w: 1, h: 1,}}>2</div>
+        <div key="c" data-grid={{x: 4, y: 0, w: 1, h: 1}}>3</div>
       </ReactGridLayout>
     );
 
