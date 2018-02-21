@@ -1,0 +1,6 @@
+.brick {
+    text-align: center;
+    border: 1px solid black;
+    vertical-align: middle;
+    background-color: darkorange;
+}

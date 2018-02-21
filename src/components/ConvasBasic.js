@@ -2,7 +2,7 @@ import React from "react";
 import _ from "lodash";
 // import RGL, { WidthProvider } from "react-grid-layout";
 import ReactGridLayout from 'react-grid-layout';
-
+import './style.css'
 // const ReactGridLayout = WidthProvider(RGL);
 
 class BasicLayout extends React.Component {
@@ -34,9 +34,7 @@ class BasicLayout extends React.Component {
     generateDOM() {
         return _.map(this.props.list, function (i) {
             return (
-                <div key={i}>
-                    <span className="text" style={{textDecoration:'center'}}>{i}</span>
-                </div>
+                <div key={i} className="brick">{i}</div>
             );
         });
     }
@@ -69,15 +67,18 @@ class BasicLayout extends React.Component {
         this.props.onLayoutChange(layout);
     }
 
+    onDrag(layout, oldItem, newItem, placeholder, e, element){
+        debugger;
+    }
+
     render() {
 
         return (<ReactGridLayout
             layout={this.generateLayout()}
             onLayoutChange={this.onLayoutChange}
+            onDrag={this.onDrag}
             {...this.layoutProps()}
             width={300}
-            // autoSize={false}
-            style={{height: 0}}
         >
             {this.generateDOM()}
         </ReactGridLayout>);
