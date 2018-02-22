@@ -18,7 +18,7 @@ export default class Brick extends Component {
      number : this.props.number,
      activeDrags: 0,
      deltaPosition: {
-       x: 0, y: 0
+       x: this.props.position.x, y: this.props.position.y
      },
      controlledPosition: {
        x: -400, y: 200
@@ -42,7 +42,7 @@ export default class Brick extends Component {
 
  onStop() {
    this.setState({activeDrags: --this.state.activeDrags});
-   
+
 
 
  }
@@ -82,7 +82,8 @@ export default class Brick extends Component {
     return (
         <Draggable onDrag= {this.handleDrag} bounds="parent" {...dragHandlers}>
           <div className="numberBox">
-          <button type="button" onClick={this.clickHandle}  className="btn btn-primary btn-lg">{this.state.number} </button>
+          <button type="button" onClick={this.clickHandle}  className="btn btn-primary btn-lg">{this.state.number}
+           </button>
           </div>
         </Draggable>
       );
