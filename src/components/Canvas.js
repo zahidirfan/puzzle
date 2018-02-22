@@ -22,17 +22,16 @@ export default class Canvas extends Component {
   }
 
   render() {
+    var height = this.props.size * 50 + 'px';
     if (this.props.size > 0) {
       this.createBricks();
     }
     return (
+      <div className="box" style={{height: {height}, width: '500px', position: 'relative', overflow: 'auto', padding: '0'}}>
+               {this.state.bricks}
+      </div>
 
-      <div className="box" style={{height: '500px', width: '500px', position: 'relative', overflow: 'auto', padding: '0'}}>
-           <div style={{height: '500px', width: '500px', padding: '10px'}}>
-              {this.state.bricks}
-            
-           </div>
-         </div>
+
     );
   }
 }

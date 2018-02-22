@@ -9,7 +9,8 @@ export default class Brick extends Component {
     this.state = this.getInitialState();
     this.onStart = this.onStart.bind(this);
     this.onStop = this.onStop.bind(this);
-    console.log(this.state);
+    this.handleDrag = this.handleDrag.bind(this);
+    this.clickHandle = this.clickHandle.bind(this);
   }
 
   getInitialState() {
@@ -41,6 +42,9 @@ export default class Brick extends Component {
 
  onStop() {
    this.setState({activeDrags: --this.state.activeDrags});
+   
+
+
  }
 
  // For controlled component
@@ -68,17 +72,19 @@ export default class Brick extends Component {
    this.onControlledDrag(e, position);
    this.onStop();
  }
+ clickHandle(e){
+   console.log(this.state)
+ }
 
   render () {
     const dragHandlers = {onStart: this.onStart, onStop: this.onStop};
     const {deltaPosition, controlledPosition} = this.state;
     return (
-        <Draggable bounds="parent" {...dragHandlers}>
+        <Draggable onDrag= {this.handleDrag} bounds="parent" {...dragHandlers}>
           <div className="numberBox">
-          <h1> {this.state.number} </h1>
+          <button type="button" onClick={this.clickHandle}  className="btn btn-primary btn-lg">{this.state.number} </button>
           </div>
         </Draggable>
-
       );
   }
 }
