@@ -1,49 +1,53 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import Brick from './Brick';
+import {SortableContainer, SortableElement, arrayMove} from 'react-sortable-hoc';
+
+const SortableItem = SortableElement(({value}) => <div className="box" style = {{width: 40, height: 40, backgroundColor: 'orange'}}>{value}</div>);
+
+const SortableList = SortableContainer(({items}) => {
+  var width = 60 * Math.sqrt(items.length) + 20;
+  var height = 60 * Math.sqrt(items.length) + 20;
 
 
+    return (
+      <div className="boxcontainer" style = {{width: width, height: height, backgroundColor: 'powderblue'}}>
+        {items.map((item, index) => {
+          return <SortableItem key={`item-${index}`} index={index} value={item} />;
+        })}
+      </div>
+    );
+});
 
-export default class Canvas extends Component {
-  constructor (props){
-    super (props);
+export default class Canvas extends React.Component {
+	constructor(props) {
+    super(props);
     this.state = {
-      bricks : []
-    };
-
-    this.createBricks = this.createBricks.bind(this);
-    this.renderBricks = this.renderBricks.bind(this);
-
+        list: this.props.array
+    }
   }
 
-  createBricks(){
-    this.state.bricks = [];
-    for (var i=0; i < this.props.array.length; i++){
-      var index = i ;
-      var position = { x: Math.floor(index / this.props.size)*50, y:  -(index % this.props.size)*50};
-      console.log(i );
-      console.log( position);
-      this.state.bricks.push(<Brick position={position} number = {this.props.array[i]}/>);
+  onSortEnd({oldIndex, newIndex}) {
+    this.setState({
+      list: arrayMove(this.state.list, oldIndex, newIndex)
+    });
+    if (!!this.state.list.reduce((memo, item) => memo && item >= memo && item)){
+      alert('Wow! Welcome to the team!!');
     }
 
-    // while(tempbricks.length) this.state.bricks.push(tempbricks.splice(0,this.props.size));
-
   }
 
-  renderBricks(){
+  componentWillReceiveProps(nextProps){
+    this.setState({
+      list : nextProps.array
+    });
+
   }
 
   render() {
-    var height = this.props.size * 50 + 'px';
-    if (this.props.size > 0) {
-      this.createBricks();
-    }
     return (
-      <div className="box" style={{height: {height}, width: '500px', position: 'relative', overflow: 'auto', padding: '0'}}>
-      {this.state.bricks}
+      <div>
+        <SortableList items={this.state.list} onSortEnd={this.onSortEnd.bind(this)} axis='xy' />
       </div>
-
-
     );
   }
-}
+};
