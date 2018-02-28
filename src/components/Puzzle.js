@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Table, Grid, Row, Col} from 'react-bootstrap';
-import Brick from './Brick';
 import Canvas from './Canvas';
 
 
@@ -10,7 +9,6 @@ export default class Puzzle extends Component {
     super(props);
 
     this.createArray = this.createArray.bind(this);
-    this.createBricks = this.createBricks.bind(this);
     this.state = {
       randomArray : []
     }
@@ -18,32 +16,22 @@ export default class Puzzle extends Component {
 
   }
 
-  createBricks(){
-    var bricks = this.state.randomArray.map((item, index)=>{
-      if (index % this.props.size !== 0) {
-        return <td><Brick  number={item}/> </td>;
-      }
-      else {
-        return <tr> <td> <Brick number = {item}/> </td> </tr>;
-      }
-    }
-  );
-  return bricks;
-}
+
 
 createArray(size){
-    var array = Array.apply(null, Array(size*size)).map(function(item, index){
+  var array =[];
+    array = Array.apply(null, Array(size*size)).map(function(item, index){
       return index+1;
     });
 
     var shuffledArray =  (
       ()=> {
-        // for (var i=0 ; i < array.length; i++) {
-        //   var random = Math.floor(Math.random()*(i+1));
-        //   var temp = array [i];
-        //   array[i] = array[random] ;
-        //   array[random] = temp;
-        // }
+        for (var i=0 ; i < array.length; i++) {
+          var random = Math.floor(Math.random()*(i+1));
+          var temp = array [i];
+          array[i] = array[random] ;
+          array[random] = temp;
+        }
         return array;
       }
     )();
@@ -63,8 +51,7 @@ createArray(size){
   render (){
     return (
       <div>
-        <h1> Puzzle of size {this.props.size} will be displayed here </h1>
-        <Canvas/>
+        <Canvas size = {this.props.size} array = {this.state.randomArray}/>
       </div>
     );
   }

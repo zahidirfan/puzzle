@@ -1,21 +1,53 @@
-import ReactGridLayout from 'react-grid-layout';
 import React, {Component} from 'react';
-import 'react-grid-layout/css/styles.css';
-import 'react-resizable/css/styles.css';
+import ReactDOM from 'react-dom';
+import {SortableContainer, SortableElement, arrayMove} from 'react-sortable-hoc';
 
-export default class Canvas extends Component {
-  constructor (props){
-    super (props);
-  }
-  render (){
+const SortableItem = SortableElement(({value}) => <div className="box" style = {{width: 40, height: 40, backgroundColor: 'orange'}}>{value}</div>);
+
+const SortableList = SortableContainer(({items}) => {
+  var width = 60 * Math.sqrt(items.length) + 20;
+  var height = 60 * Math.sqrt(items.length) + 20;
+
 
     return (
-      <ReactGridLayout className="layout" rows={1} cols={3} rowHeight={30} width={300} autoSize={false}>
-        <div key="a" data-grid={{x: 0, y: 0, w: 1, h: 1,}}>a</div>
-        <div key="b" data-grid={{x: 1, y: 0, w: 1, h: 1,}}>b</div>
-        <div key="c" data-grid={{x: 4, y: 0, w: 1, h: 1}}>c</div>
-      </ReactGridLayout>
+      <div className="boxcontainer" style = {{width: width, height: height, backgroundColor: 'powderblue'}}>
+        {items.map((item, index) => {
+          return <SortableItem key={`item-${index}`} index={index} value={item} />;
+        })}
+      </div>
     );
+});
+
+export default class Canvas extends React.Component {
+	constructor(props) {
+    super(props);
+    this.state = {
+        list: this.props.array
+    }
+  }
+
+  onSortEnd({oldIndex, newIndex}) {
+    this.setState({
+      list: arrayMove(this.state.list, oldIndex, newIndex)
+    });
+    if (!!this.state.list.reduce((memo, item) => memo && item >= memo && item)){
+      alert('Wow! Welcome to the team!!');
+    }
 
   }
-}
+
+  componentWillReceiveProps(nextProps){
+    this.setState({
+      list : nextProps.array
+    });
+
+  }
+
+  render() {
+    return (
+      <div>
+        <SortableList items={this.state.list} onSortEnd={this.onSortEnd.bind(this)} axis='xy' />
+      </div>
+    );
+  }
+};

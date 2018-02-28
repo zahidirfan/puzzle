@@ -20,6 +20,68 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>React App</title>
+
+    <style type="text/css">
+  * {
+    box-sizing: border-box;
+  }
+  html, body {
+    height: 100%;
+  }
+  body {
+    color: #222;
+    font-family: "Helvetica Neue", sans-serif;
+    font-weight: 200;
+    margin: 0 50px;
+  }
+  .react-draggable, .cursor {
+    cursor: move;
+  }
+  .no-cursor {
+    cursor: auto;
+  }
+  .cursor-y {
+    cursor: ns-resize;
+  }
+  .cursor-x {
+    cursor: ew-resize;
+  }
+  .react-draggable strong {
+    background: #ddd;
+    border: 1px solid #999;
+    border-radius: 3px;
+    display: block;
+    margin-bottom: 10px;
+    padding: 3px 5px;
+    text-align: center;
+  }
+
+  .boxcontainer {
+  background-color: tomato;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+}
+  .box {
+    background: #fff;
+    border: 1px solid #999;
+    border-radius: 3px;
+
+    margin: 10px;
+    padding: 10px;
+    float: left;
+  }
+  .numberBox {
+    background: orange;
+    border: 1px solid #999;
+    /* border-radius: 3px; */
+    width: 50px;
+    height: 60px;
+    margin: 10px;
+    padding: 10px;
+    align-items: center;
+  }
+</style>
   </head>
   <body>
     <noscript>
